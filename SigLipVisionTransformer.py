@@ -12,6 +12,7 @@ class SigLipVisionTransformer(nn.Module):
         # Build 1x Transformer Block
         # ---------------------------------------------------------------------
         self.config = config
+        #  64       = 768           //          12
         head_dim    = config.dmodel // config.num_attention_heads
 
         # ---------------------------------------------------------------------
@@ -36,5 +37,7 @@ class SigLipVisionTransformer(nn.Module):
         self.mlp_fc1     = nn.Linear(config.dmodel, config.dff_inner_dim)
         self.mlp_fc2     = nn.Linear(config.dff_inner_dim, config.dmodel)
 
-    def forward(self, ):
-        pass
+    def forward(self, transformer_input):
+        
+        batch_size, seq_len, embed_dim = transformer_input
+        head_dim 
