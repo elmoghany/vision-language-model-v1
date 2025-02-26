@@ -65,3 +65,16 @@ class RotaryEmbedding(nn.Module):
             sin = full_dim.sin()
         
         return cos, sin
+    
+def rotate_half(x):
+    # Splits the last dimension in half and swaps with a negation.
+    x1 = x[..., : x.shape[-1] // 2]
+    x2 = x[..., x.shape[-1] // 2 :]
+    return torch.cat([-x2, x1], dim=-1)
+
+def apply_rotary(q, k, cos, sin):
+    # q, k: [B, num_heads, seq_len, head_dim]
+    # cos, sin: [B, 1, seq_len, head_dim] (broadcastable over heads)
+    q_embed = q * cos + rotate_half(q) * sin
+    k_embed = k * cos + rotate_half(k) * sin
+    return q_embed, k_embed
