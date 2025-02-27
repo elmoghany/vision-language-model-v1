@@ -15,10 +15,12 @@ class TextConfig():
         attention_bias=False,
         attention_dropout=0.0,
         pad_token_id=None,
+        device='cuda',
         **kwargs,
     ):
         super().__init__()
         self.vocab_size = vocab_size
+        self.device = device
         self.max_position_embeddings = max_position_embeddings
         self.hidden_size = hidden_size
         self.intermediate_size = intermediate_size

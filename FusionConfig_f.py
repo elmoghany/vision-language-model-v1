@@ -13,6 +13,7 @@ class FusionConfig():
         projection_dim=2048,
         hidden_size=2048,
         pad_token_id=None,
+        device = "cuda",
         **kwargs,
     ):
         super().__init__()
@@ -22,6 +23,7 @@ class FusionConfig():
         self.projection_dim = projection_dim
         self.hidden_size = hidden_size
         self.is_encoder_decoder = False
+        self.device = device
         self.pad_token_id = pad_token_id
 
         self.vision_config = vision_config
