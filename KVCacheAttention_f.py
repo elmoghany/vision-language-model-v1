@@ -90,11 +90,16 @@ class KVCacheAttention(nn.Module):
         
         attn_weights = F.softmax(attn_scores, dim=-1)
         attn_weights = F.dropout(attn_weights, p=self.dropout, training=self.training)
+        # [B, num_heads, seq_len, head_dim]
         attn_out = torch.matmul(attn_weights, v)
         
         ######################################
         #####--- (6)  Final Projection ---#####
-        attn_out = attn_out.transpose(1, 2).reshape(batch_size, seq_len, self.num_heads * self.head_dim)
+        # [B, num_heads, seq_len, head_dim]
+        attn_out = attn_out.transpose(1, 2)
+        # [B, seq_len, num_heads, head_dim]
+        attn_out = attn_out.reshape(batch_size, seq_len, self.num_heads * self.head_dim)
+        # [B, seq_len, num_heads * head_dim]
         output = self.o_proj(attn_out)
         
         return output
