@@ -27,7 +27,7 @@ class FusionConfig():
         self.pad_token_id = pad_token_id
 
         self.vision_config = vision_config
-        self.vision_config = SigLipVisionConfig(**vision_config)
+        self.vision_config = VisionConfig(**vision_config)
         self.vision_config.projection_dim = projection_dim
 
         self.text_config = text_config
