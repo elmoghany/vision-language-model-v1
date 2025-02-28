@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class Decoder(nn.Module):
+class DecoderLayer(nn.Module):
     def __init__(self, config: 'TextConfig', layer_idx):
         super().__init__()
         self.hidden_size = config.hidden_size
