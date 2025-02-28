@@ -1,4 +1,4 @@
-from SigLipVisionConfig_f import SigLipVisionConfig
+from VisionConfig_f import VisionConfig
 from TextConfig_f import TextConfig
 
 class FusionConfig():

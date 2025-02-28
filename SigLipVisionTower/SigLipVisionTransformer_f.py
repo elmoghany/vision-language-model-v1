@@ -6,7 +6,7 @@ from ../Config/VisionConfig_f import VisionConfig
 
 
 class SigLipVisionTransformer(nn.Module):
-    def __init__(self, config: SigLipVisionConfig):
+    def __init__(self, config: 'VisionConfig'):
         super().__init__()
         # ---------------------------------------------------------------------
         # Build 1x Transformer Block

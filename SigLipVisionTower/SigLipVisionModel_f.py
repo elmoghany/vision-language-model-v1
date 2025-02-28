@@ -12,7 +12,7 @@ from SigLipVisionTransformer_f import SigLipVisionTransformer
 # 6. Output shape [batch_size, num_patches, dmodel]
 
 class SigLipVisionModel(nn.Module):
-    def __init__(self, config: SigLipVisionConfig):
+    def __init__(self, config: 'VisionConfig'):
         super().__init__()
         self.config     = config
         

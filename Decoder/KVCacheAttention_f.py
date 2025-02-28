@@ -102,6 +102,6 @@ class KVCacheAttention(nn.Module):
         # [B, seq_len, num_heads, head_dim]
         attn_out = attn_out.reshape(batch_size, seq_len, self.num_heads * self.head_dim)
         # [B, seq_len, num_heads * head_dim]
-        output = self.o_proj(attn_out)
+        attn_out = self.o_proj(attn_out)
         
-        return output
+        return att_out, attn_weights
