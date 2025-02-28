@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from ../Config/VisionConfig_f import VisionConfig
+from ..Config.VisionConfig_f import VisionConfig
 from SigLipVisionTransformer_f import SigLipVisionTransformer
 
 # 1. Create a patch of embeddings

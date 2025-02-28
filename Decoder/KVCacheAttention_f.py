@@ -1,4 +1,4 @@
-from ../Config/TextConfig_f import TextConfig
+from ..Config.TextConfig_f import TextConfig
 from RotaryEmbedding_f import RotaryEmbedding, apply_rotary
 from KVCache_f import KVCache
 import torch

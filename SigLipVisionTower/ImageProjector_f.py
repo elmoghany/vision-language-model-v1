@@ -1,4 +1,4 @@
-from ../Config/FusionConfig_f import FusionConfig
+from ..Config.FusionConfig_f import FusionConfig
 import torch
 import torch.nn as nn
 

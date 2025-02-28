@@ -1,5 +1,5 @@
 from KVCacheAttention_f import KVCacheAttention
-from ../Config/TextConfig_f import TextConfig
+from ..Config.TextConfig_f import TextConfig
 import torch
 import torch.nn as nn
 
