@@ -51,7 +51,7 @@ class DecoderLayer(nn.Module):
         residual = x
         
         # post-attn RMS layer norm
-        x = x * torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps) * (1.0 + self.weight_pre())
+        x = x * torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps) * (1.0 + self.weight_pre)
         
         # attention
         x, _ = self.self_attn(x=x, attn_mask=attn_mask, pos_ids=pos_ids, kv_cache=kv_cache)
@@ -59,13 +59,14 @@ class DecoderLayer(nn.Module):
         residual = x
         
         # post-attn RMSLayer Norm
-        x = x * torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps) * (1.0 + self.weight_pre())
+        x = x * torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps) * (1.0 + self.weight_post)
         
         # MLP
         gate_out = self.gate_proj(x)
+        gate_out = F.sigmoid(gate_out)
         up_out = self.up_proj(x)
+        up_out = F.gelu(up_out, approximate='tanh')
         x = gate_out * up_out
-        x = F.gelu(x, approximate='tanh')
         x = self.down_proj(x)
         x = residual + x
         
