@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 
 class Decoder(nn.Module):
-    def __init__(self, config: 'TextConfig', layer_idx):
+    def __init__(self, config: 'TextConfig'):
         super().__init__()
         self.layers = nn.ModuleList(
             [DecoderLayer(config, layer_idx=i) for i in range(config.num_layers)]

@@ -54,8 +54,8 @@ class SigLipVisionTransformer(nn.Module):
         batch_size, seq_len, embed_dim = transformer_input.shape
         head_dim = embed_dim // self.num_attention_heads
         q = self.q_proj(x).view(batch_size, seq_len, self.num_attention_heads, head_dim).transpose(1,2)
-        k = self.q_proj(x).view(batch_size, seq_len, self.num_attention_heads, head_dim).transpose(1,2)
-        v = self.q_proj(x).view(batch_size, seq_len, self.num_attention_heads, head_dim).transpose(1,2)
+        k = self.k_proj(x).view(batch_size, seq_len, self.num_attention_heads, head_dim).transpose(1,2)
+        v = self.v_proj(x).view(batch_size, seq_len, self.num_attention_heads, head_dim).transpose(1,2)
         
         # Attention scores
         # [batch_size, num_heads, seq_len, head_dim] . [batch_size, num_heads, head_dim, seq_len]
