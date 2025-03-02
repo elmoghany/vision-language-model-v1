@@ -14,6 +14,7 @@ from ..SigLipVisionTower.ImageTextFusion_f import ImageTextFusion
 
 ### Import Decoder ###
 from ..Decoder.Decoder_f import Decoder
+from ..Decoder.CausalLM_f import CausalLM
 
 class TopModule(nn.Module):
     def __init__(self):
