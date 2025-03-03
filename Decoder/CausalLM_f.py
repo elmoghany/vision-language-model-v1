@@ -22,6 +22,9 @@ class CausalLM(nn.Module):
     def tie_weights(self):
         self.lm_head.weight = self.embed_tokens.weight
 
+    def get_input_embeddings(self):
+        return self.embed_tokens
+        
     def forward(self, attn_mask, pos_ids, input_embeds, kv_cache):
         
         x = self.decoder(attn_mask, pos_ids, input_embeds, kv_cache)
