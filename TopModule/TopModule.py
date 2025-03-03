@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
-import PIL
-import PIL.Image as Image
+from PIL import Image
 
 ### Import Config ###
 from ..Config.VisionConfig_f import VisionConfig
@@ -13,7 +12,6 @@ from ..SigLipVisionTower.ImageProcessor_f import ImageProcessor
 from ..SigLipVisionTower.SigLipVisionModel_f import SigLipVisionModel
 from ..SigLipVisionTower.ImageProjection_f import ImageProjection
 from ..SigLipVisionTower.ImageTextFusion_f import ImageTextFusion
-from ..SigLipVisionTower.MergeImageFeaturesWithInputIds_f import MergeImageFeaturesWithInputIds
 ### Import Decoder ###
 from ..Decoder.CausalLM_f import CausalLM
 
@@ -41,7 +39,7 @@ class TopModule(nn.Module):
         self.language_model = CausalLM(config.text_config)
         
         # 5) merging
-        self.merger = MergeImageFeaturesWithInputIds(config)
+        self.merger = ImageTextFusion(config)
 
     def tie_weights(self):
         return self.language_model.tie_weights()
