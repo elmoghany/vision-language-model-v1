@@ -1,1 +1,2 @@
-# Documentation coming soon with illustrated pictures!
+# VLM Architecture
+(image not found)[assets/vlm-architecture.png]
