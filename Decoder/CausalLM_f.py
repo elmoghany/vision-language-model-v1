@@ -19,6 +19,10 @@ class CausalLM(nn.Module):
         # tie weights
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
         
+        # RMS LayerNorm
+        self.eps = config.rms_norm_eps
+        self.rmsNorm = nn.Parameter(torch.zeros(self.hidden_size))
+        
     def tie_weights(self):
         self.lm_head.weight = self.embed_tokens.weight
 
@@ -30,7 +34,7 @@ class CausalLM(nn.Module):
         x = self.decoder(attn_mask, pos_ids, input_embeds, kv_cache)
         
         # post decoder rms normalization
-        x = x * torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps) * (1.0 + self.weight_post)
+        x = x * torch.rsqrt(x.pow(2).mean(dim=-1, keepdim=True) + self.eps) * (1.0 + self.rmsNorm)
 
         # lm head layer - post decoder
         logits = self.lm_head(x).float()

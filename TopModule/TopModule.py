@@ -46,13 +46,15 @@ class TopModule(nn.Module):
     
     def forward(self, input_ids, images, attn_mask, kv_cache):
         
-        assert pixel_values is not None, "No image data provided"
 
         # Step 0: Pre-process images if needed (using self.image_processor).
+        if images is None:
+            raise ValueError("No image provided")
+        
         if isinstance(images, list) and isinstance(images[0], Image.Image):
             # Process the list of PIL images.
             processed_dict = self.image_processor(
-                text=["dummy text"],  # You can adjust this text as needed.
+                text=["dummy text"], 
                 images=images
             )
             pixel_values = processed_dict["pixel_values"]
