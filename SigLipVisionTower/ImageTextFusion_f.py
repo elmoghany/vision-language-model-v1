@@ -1,20 +1,6 @@
 import torch
-
 class ImageTextFusion:
-    """
-    This class replicates the logic of the original
-    _merge_image_features_with_input_ids method, but now
-    in a separate file and wrapped into a callable class.
-    """
-
     def __init__(self, config):
-        """
-        config: typically a FusionConfig or a structure
-                containing at least:
-                  - config.hidden_size
-                  - config.image_token_index
-                  - config.pad_token_id
-        """
         self.config = config
     
     def __call__(
@@ -83,24 +69,22 @@ class ImageTextFusion:
         ##############################
         # Build a minimal causal mask
         ##############################
-        query_len = input_embeds.shape[-2]  # typically seq_length
+        query_len = input_embeds.shape[-2]  # seq_length
         # If no kv_cache or it's empty, we do a prefill scenario
         if kv_cache is None or kv_cache.num_items() == 0:
             # shape => [batch_size, query_len, query_len]
-            causal_mask = torch.zeros(
-                (batch_size, query_len, query_len),
-                dtype=final_embedding.dtype,
-                device=final_embedding.device
+            causal_mask = torch.zeros((batch_size, query_len, query_len),
+                # dtype=final_embedding.dtype,
+                # device=final_embedding.device
             )
         else:
             # Generating tokens one by one => single step
             assert query_len == 1, "For incremental gen, expect single query token."
             kv_len = kv_cache.num_items() + query_len
             # shape => [batch_size, query_len, kv_len]
-            causal_mask = torch.zeros(
-                (batch_size, query_len, kv_len),
-                dtype=final_embedding.dtype,
-                device=final_embedding.device
+            causal_mask = torch.zeros((batch_size, query_len, kv_len),
+                # dtype=final_embedding.dtype,
+                # device=final_embedding.device
             )
 
         # Expand for heads => [B, 1, Q, K]
